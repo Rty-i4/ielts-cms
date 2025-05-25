@@ -1,27 +1,27 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { SignUp as ClerkSignUpForm } from '@clerk/nextjs';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import { IconStar } from '@tabler/icons-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import SupabaseAuthForm from './supabase-auth-form';
 
 export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.'
+  title: 'Authentication | Sign Up',
+  description: 'Sign up page for authentication.'
 };
 
-export default function SignUpViewPage({ stars }: { stars: number }) {
+export default function SupabaseSignUpViewPage({ stars }: { stars: number }) {
   return (
     <div className='relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
       <Link
-        href='/examples/authentication'
+        href='/auth/sign-in'
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          'absolute top-4 right-4 hidden md:top-8 md:right-8'
+          'absolute top-4 right-4 md:top-8 md:right-8'
         )}
       >
-        Sign Up
+        Sign In
       </Link>
       <div className='bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-r'>
         <div className='absolute inset-0 bg-zinc-900' />
@@ -38,16 +38,15 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
           >
             <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
           </svg>
-          Logo
+          IELTS CMS
         </div>
         <div className='relative z-20 mt-auto'>
           <blockquote className='space-y-2'>
             <p className='text-lg'>
-              &ldquo;This starter template has saved me countless hours of work
-              and helped me deliver projects to my clients faster than ever
-              before.&rdquo;
+              &ldquo;Join thousands of educators using our IELTS content
+              management system to create better learning experiences.&rdquo;
             </p>
-            <footer className='text-sm'>Random Dude</footer>
+            <footer className='text-sm'>IELTS Educator</footer>
           </blockquote>
         </div>
       </div>
@@ -71,11 +70,28 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
               <span className='font-display font-medium'>{stars}</span>
             </div>
           </Link>
-          <ClerkSignUpForm
-            initialValues={{
-              emailAddress: 'your_mail+clerk_test@example.com'
-            }}
-          />
+
+          <div className='w-full max-w-sm space-y-6'>
+            <div className='flex flex-col space-y-2 text-center'>
+              <h1 className='text-2xl font-semibold tracking-tight'>
+                Create your account
+              </h1>
+              <p className='text-muted-foreground text-sm'>
+                Enter your email and password to get started with IELTS CMS
+              </p>
+            </div>
+            <SupabaseAuthForm mode='signup' />
+            <p className='text-muted-foreground text-center text-sm'>
+              Already have an account?{' '}
+              <Link
+                href='/auth/sign-in'
+                className='hover:text-primary underline underline-offset-4'
+              >
+                Sign in
+              </Link>
+            </p>
+          </div>
+
           <p className='text-muted-foreground px-8 text-center text-sm'>
             By clicking continue, you agree to our{' '}
             <Link
